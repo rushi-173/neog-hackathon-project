@@ -1,0 +1,33 @@
+.App {
+  height: 100%;
+  overflow: hidden;
+  color: var(--color-grey-darkest);
+  top: 0;
+  left: 0;
+}
+.main-window {
+  display: flex;
+  height: calc(100vh - 4rem);
+  width: 100%;
+  margin: 0.2rem;
+}
+
+.main-window-container {
+  padding: 1rem;
+  overflow-y: scroll;
+  background-color: var(--color-grey-light);
+  height: 100%;
+  width: 100%;
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+@media only screen and (max-width: 500px) {
+  .main-window {
+    flex-direction: column-reverse;
+    padding: 0;
+  }
+  .main-window-container {
+    padding: 0rem;
+  }
+}
