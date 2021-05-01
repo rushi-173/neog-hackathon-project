@@ -2,7 +2,15 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { Navbar, Sidebar } from "./components";
-import { Home, Login, Signup, Welcome, Account, CreateRoom } from "./pages";
+import {
+  Home,
+  Login,
+  Signup,
+  Welcome,
+  Account,
+  CreateRoom,
+  ChatRoom
+} from "./pages";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./contexts/authContext";
 import { useToast } from "./contexts/toastContext";
@@ -52,11 +60,37 @@ export default function App() {
         <div className="main-window-container">
           <Routes>
             <PrivateRoute exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
+            <Route
+              exact
+              path="/login"
+              element={!auth ? <Login /> : <Navigate to="/" />}
+            />
             <Route exact path="/welcome" element={<Welcome />} />
-            <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/account" element={<Account />} />
-            <Route exact path="/createroom" element={<CreateRoom />} />
+            <Route
+              exact
+              path="/signup"
+              element={!auth ? <Signup /> : <Navigate to="/" />}
+            />
+            <Route
+              exact
+              path="/account"
+              element={auth ? <Account /> : <Navigate to="/login" />}
+            />
+            <Route
+              exact
+              path="/createroom"
+              element={auth ? <CreateRoom /> : <Login />}
+            />
+            <Route
+              exact
+              path="/chatroom"
+              element={auth ? <ChatRoom /> : <Login />}
+            />
+            <Route
+              exact
+              path="/chatroom/:chatid"
+              element={auth ? <ChatRoom /> : <Login />}
+            />
           </Routes>
           <ToastContainer style={{ position: "fixed", right: "1rem" }} />
         </div>
