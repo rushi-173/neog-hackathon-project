@@ -2,7 +2,6 @@ import "./Navbar.css";
 import { useState } from "react";
 import { Hamburger } from "./Hamburger";
 import { MenuItems } from "./MenuItems";
-import { MainNavItems } from "./MainNavItems";
 import { Search } from "../Search/Search";
 import { Link } from "react-router-dom";
 
@@ -27,7 +26,7 @@ export const Navbar = () => {
         />
         <Link to="/" className="container-center brand-logo">
           <p className="brand-name">
-            Text<span>House</span>
+            Adda <span>51</span>
           </p>
         </Link>
       </div>
