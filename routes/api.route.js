@@ -8,6 +8,7 @@ router.use((req, res, next) => {
       socket.broadcast.emit('message', data)
     });
   });
+
   next();
 })
 
