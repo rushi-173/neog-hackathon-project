@@ -10,9 +10,20 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             if (message.repliedTo) {
               return (
                 <div className="chat__self">
-                  <small>{message.sender.name}</small>
+                  <div>
+                    <small className="sender-name">
+                      {message.sender.name}{" "}
+                    </small>
+                    <button
+                      onClick={() => {
+                        replyHandler(message);
+                      }}
+                    >
+                      <i className="fa fa-reply" aria-hidden="true"></i>
+                    </button>
+                  </div>
                   <div className="reply--msg">
-                    <small>{message.repliedTo.user.name}</small>
+                    <small>{message.repliedTo.sender.name}</small>
                     <p>{message.repliedTo.message}</p>
                   </div>
                   <p>{message.message}</p>
@@ -21,7 +32,16 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             }
             return (
               <div className="chat__self">
-                <small className="sender-name">{message.sender.name}</small>
+                <div>
+                  <small className="sender-name">{message.sender.name} </small>
+                  <button
+                    onClick={() => {
+                      replyHandler(message);
+                    }}
+                  >
+                    <i className="fa fa-reply" aria-hidden="true"></i>
+                  </button>
+                </div>
                 <p>{message.message}</p>
               </div>
             );
@@ -42,7 +62,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
                     </button>
                   </div>
                   <div className="reply--msg">
-                    <small>{message.repliedTo.user.name}</small>
+                    <small>{message.repliedTo.sender.name}</small>
                     <p>{message.repliedTo.message}</p>
                   </div>
                   <p>{message}</p>
