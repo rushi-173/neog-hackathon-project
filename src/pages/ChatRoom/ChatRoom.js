@@ -97,6 +97,8 @@ export function ChatRoom() {
     } catch (err) {
       console.log("error in exit");
     }
+    console.log("archieve hua???");
+    navigate("/");
   }
 
   async function deleteRoom() {
@@ -112,6 +114,7 @@ export function ChatRoom() {
     } catch (err) {
       console.log("error in exit");
     }
+    navigate("/");
   }
 
   async function exitRoom() {
@@ -192,11 +195,19 @@ export function ChatRoom() {
   // }, []);
   function sendMessage(e) {
     if ((e.type === "click" || e.key === "Enter") && input) {
-      const msg = {
-        sender: auth.user,
-        message: input,
-        repliedTo: replyTo
-      };
+      let msg;
+      if (replyTo != undefined) {
+        msg = {
+          sender: auth.user,
+          message: input,
+          repliedTo: replyTo
+        };
+      } else {
+        msg = {
+          sender: auth.user,
+          message: input
+        };
+      }
       socket.emit("chatMessage", { msg: msg, room: currentRoom });
       setInput("");
       setReplyTo(undefined);
