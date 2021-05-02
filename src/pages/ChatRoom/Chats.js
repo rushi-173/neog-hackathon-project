@@ -65,7 +65,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
                     <small>{message.repliedTo.sender.name}</small>
                     <p>{message.repliedTo.message}</p>
                   </div>
-                  <p>{message}</p>
+                  <p>{message.message}</p>
                 </div>
               );
             }
