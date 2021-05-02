@@ -16,14 +16,22 @@ export function CreateRoom() {
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
-  const [startTime, setStartTime] = useState(Date.now);
+  const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   // console.log(startTime, endTime);
+
+  useEffect(() => {
+    if (startTime > endTime) {
+      setError("End time cannot be before start time");
+    } else {
+      setError("");
+    }
+  }, [endTime]);
 
   async function handleCreateRoom(e) {
     console.log(auth);
     e.preventDefault();
-    if (auth) {
+    if (auth && error === "") {
       try {
         setIsLoading(true);
         const res = await axios.post(
