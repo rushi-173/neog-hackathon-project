@@ -2,7 +2,7 @@
 
 <div align="center">
     <h1>Adda</h1>
-     <a href=""><img src="https://api.netlify.com/api/v1/badges/7a3c7d1b-89b2-47ce-9bbc-034842bfdccb/deploy-status" alt="Netlify Status"></a>     
+     <a href="https://adda51.netlify.app/"><img src="https://api.netlify.com/api/v1/badges/7a3c7d1b-89b2-47ce-9bbc-034842bfdccb/deploy-status" alt="Netlify Status"></a>     
       <p>
       Adda 51 is adda of all the gossips and whereabouts happening around you. Create your room, add users to stage and discuss. The room is public so you can share it to the world but you also can control who can send messages in the room by bringing them to stage. So that’s two shot from one arrow. 
       </p>
@@ -18,6 +18,22 @@
 - [Express](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 - [NodeJs](https://nodejs.org/en/)
+
+## Where you will find the code?
+
+- [Frontend Code](https://github.com/rushi-173/neog-hackathon-project/tree/frontend)
+- [Backend Code](https://github.com/rushi-173/neog-hackathon-project/tree/backend)
+- [Frontend Code In Code Editor](https://github1s.com/rushi-173/neog-hackathon-project/tree/frontend)
+- [Backend Code In Code Editor](https://github1s.com/rushi-173/neog-hackathon-project/tree/backend)
+
+## Here is Live Demo -
+
+- [Live Demo](https://adda51.netlify.app/)
+
+## Here are demo user's credentials -
+
+- email - demo@gmail.com
+- password - 123456
 
 ## Installation commands
 
