@@ -10,7 +10,8 @@ import {
   Account,
   CreateRoom,
   ChatRoom,
-  ClosedRooms
+  ClosedRooms,
+  ArchievedMessages
 } from "./pages";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./contexts/authContext";
@@ -96,6 +97,11 @@ export default function App() {
               exact
               path="/chatroom/:chatid"
               element={auth ? <ChatRoom /> : <Login />}
+            />
+            <Route
+              exact
+              path="/closedrooms/:chatid"
+              element={auth ? <ArchievedMessages /> : <Login />}
             />
           </Routes>
           <ToastContainer style={{ position: "fixed", right: "1rem" }} />

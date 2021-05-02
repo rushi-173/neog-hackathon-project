@@ -1,8 +1,10 @@
-export function Chats({ currentRoom, auth, setReplyTo }) {
+export function ArchievedChats({ currentRoom, auth }) {
+  console.log("from arc", currentRoom);
   return (
     <div className="chat--container">
       {currentRoom &&
         currentRoom.messages.map((message) => {
+          console.log(message);
           if (message?.sender._id === auth?.user._id) {
             if (message.repliedTo) {
               return (
@@ -41,13 +43,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             }
             return (
               <div className="chat__other">
-                <div>
-                  <small className="sender-name">{message.sender.name} </small>
-                  <button>
-                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </button>
-                </div>
-
+                <small className="sender-name">{message.sender.name} </small>
                 <p>{message.message}</p>
               </div>
             );

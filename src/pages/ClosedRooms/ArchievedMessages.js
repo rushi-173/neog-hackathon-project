@@ -3,23 +3,23 @@ import { useParams } from "react-router-dom";
 import { useRoom } from "../../contexts/roomContext";
 import { useAuth } from "../../contexts/authContext";
 import { useToast } from "../../contexts/toastContext";
-import { Chats } from "./Chats";
+import { ArchievedChats } from "./ArchievedChats";
 import axios from "axios";
+
+function getCurrenRoom(id, rooms) {
+  return rooms && rooms.find((room) => room._id === id);
+}
 
 export function ArchievedMessages() {
   const { chatid } = useParams();
   const { auth, setAuth } = useAuth();
   const { rooms, setRooms } = useRoom();
   const { toast } = useToast();
-  const [currentRoom, setCurrentRoom] = useState(null);
-
-  useEffect(() => {
-    rooms.find((room) => room._id === id);
-  }, []);
+  const [currentRoom, setCurrentRoom] = useState(getCurrenRoom(chatid, rooms));
 
   return (
     <div className="chat--app">
-      <Chats currentRoom={currentRoom} auth={auth} />
+      <ArchievedChats currentRoom={currentRoom} auth={auth} />
     </div>
   );
 }
