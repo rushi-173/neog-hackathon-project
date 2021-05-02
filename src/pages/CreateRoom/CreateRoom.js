@@ -37,16 +37,15 @@ export function CreateRoom() {
         const res = await axios.post(
           "https://neog-hackathon-project.rushi173.repl.co/api/chatroom",
           {
-            ownerId: auth.user._id,
+            owner: auth.user,
             title: title,
             topic: topic,
-            startTime: Date(startTime),
-            endTime: Date(endTime),
-            stageMembers: [auth.user._id],
+            startTime: startTime,
+            endTime: endTime,
             active: false,
-            handraisedMembers: [],
-            audience: [],
-            messages: []
+            users: [{ ...auth.user, status: "stageMember", handraised: false }],
+            messages: [],
+            visibility: true
           },
           {
             headers: {
@@ -73,6 +72,7 @@ export function CreateRoom() {
       }
     }
   }
+  console.log("from create", startTime, endTime);
 
   return (
     <div className="CreateRoom container-center">
@@ -110,7 +110,7 @@ export function CreateRoom() {
             <TextField
               id="datetime-local"
               type="datetime-local"
-              defaultValue="2017-05-24T10:30"
+              defaultValue={Date.now()}
               className="input-area"
               InputLabelProps={{
                 shrink: true
@@ -126,7 +126,7 @@ export function CreateRoom() {
             <TextField
               id="datetime-local"
               type="datetime-local"
-              defaultValue="2017-05-24T10:30"
+              defaultValue={Date.now()}
               className="input-area"
               InputLabelProps={{
                 shrink: true

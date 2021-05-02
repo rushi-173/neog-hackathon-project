@@ -4,34 +4,14 @@ import { useRoom } from "../../contexts/roomContext";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import axios from "axios";
+import { getFormattedDate } from "../../utils/getFormattedDate";
 import { useAuth } from "../../contexts/authContext";
-function getFormattedDate(date) {
-  let dateObj = new Date();
-  let month = dateObj.getUTCMonth() + 1; //months from 1-12
-  let day = dateObj.getUTCDate();
-  let year = dateObj.getUTCFullYear();
-  let hours = dateObj.getUTCHours();
-  let minutes = dateObj.getUTCMinutes();
-  let seconds = dateObj.getUTCSeconds();
 
-  var newdate =
-    year +
-    "-" +
-    month +
-    "-" +
-    day +
-    " " +
-    hours +
-    ":" +
-    minutes +
-    ":" +
-    seconds;
-  return newdate;
-}
 export function Home() {
   const { rooms, setRooms } = useRoom();
   const { auth } = useAuth();
 
+  // console.log(auth, "Auth");
   useEffect(() => {
     if (auth) {
       try {
@@ -61,7 +41,9 @@ export function Home() {
       <div className="active--rooms">
         {rooms &&
           rooms
-            .filter((item) => new Date(item.startTime) < Date.now())
+            .filter(
+              (item) => new Date(`${item.startTime}`) < new Date(Date.now())
+            )
             .map((chatroom) => {
               return (
                 <Link to={`/chatroom/${chatroom._id}`}>
@@ -79,14 +61,16 @@ export function Home() {
       <div className="upcoming--rooms">
         {rooms &&
           rooms
-            .filter((item) => new Date(item.startTime) > Date.now())
+            .filter(
+              (item) => new Date(`${item.startTime}`) > new Date(Date.now())
+            )
             .map((chatroom) => {
               return (
                 <Link to={`/chatroom/${chatroom._id}`}>
                   <div className="room--card">
                     <h1>{chatroom.title}</h1>
                     <small>{chatroom.topic}</small>
-                    <small>{chatroom.startTime}</small>
+                    <small>{getFormattedDate(chatroom.startTime)}</small>
                     <small>Duration</small>
                   </div>
                 </Link>

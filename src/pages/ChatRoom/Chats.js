@@ -1,4 +1,4 @@
-export function Chats({ currentRoom, auth }) {
+export function Chats({ currentRoom, auth, setReplyTo }) {
   return (
     <div className="chat--container">
       {currentRoom &&
@@ -7,20 +7,36 @@ export function Chats({ currentRoom, auth }) {
             if (message.repliedTo) {
               return (
                 <div className="chat__self">
+                  <small>{message.sender.name}</small>
                   <div className="reply--msg">
                     <small>{message.repliedTo.user.name}</small>
                     <p>{message.repliedTo.message}</p>
                   </div>
-                  <p>{message}</p>
+                  <p>{message.message}</p>
                 </div>
               );
             }
-            return <div className="chat__self">{message.message}</div>;
+            return (
+              <div className="chat__self">
+                <small className="sender-name">{message.sender.name}</small>
+                <p>{message.message}</p>
+              </div>
+            );
           } else {
             if (message.repliedTo) {
               return (
                 <div className="chat__other">
-                  <small className="sender-name">{message.sender.name}</small>
+                  <div>
+                    <small className="sender-name">
+                      {message.sender.name}{" "}
+                    </small>
+                    <button>
+                      <div className="reply-to-menu">
+                        <button onClick={() => {}}>reply</button>
+                      </div>
+                      <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    </button>
+                  </div>
                   <div className="reply--msg">
                     <small>{message.repliedTo.user.name}</small>
                     <p>{message.repliedTo.message}</p>
@@ -31,7 +47,16 @@ export function Chats({ currentRoom, auth }) {
             }
             return (
               <div className="chat__other">
-                <small className="sender-name">{message.sender.name}</small>
+                <div>
+                  <small className="sender-name">{message.sender.name} </small>
+                  <button>
+                    <div className="reply-to-menu">
+                      <button onClick={() => {}}>reply</button>
+                    </div>
+                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </button>
+                </div>
+
                 <p>{message.message}</p>
               </div>
             );
