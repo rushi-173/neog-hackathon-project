@@ -60,8 +60,10 @@ export function Home() {
                   <div className="room--card">
                     <h1>{chatroom.title}</h1>
                     <small>{chatroom.topic}</small>
-                    {/* <small>{getFormattedDate(chatroom.startTime)}</small> */}
-                    <small>Duration</small>
+                    <small>
+                      {getFormattedDate(chatroom.startTime) + " to"}
+                    </small>
+                    <small>{getFormattedDate(chatroom.endTime)}</small>
                   </div>
                 </Link>
               );
@@ -90,8 +92,10 @@ export function Home() {
                   <div className="room--card">
                     <h1>{chatroom.title}</h1>
                     <small>{chatroom.topic}</small>
-                    <small>{getFormattedDate(chatroom.startTime)}</small>
-                    <small>Duration</small>
+                    <small>
+                      {getFormattedDate(chatroom.startTime) + " to"}
+                    </small>
+                    <small>{getFormattedDate(chatroom.endTime)}</small>
                   </div>
                 </Link>
               );

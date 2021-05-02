@@ -40,6 +40,7 @@ export function ClosedRooms() {
         {rooms &&
           rooms
             .filter((item) => !item.active)
+            .filter((item) => item.visibility)
             .map((chatroom) => {
               return (
                 <Link to={`/closedrooms/${chatroom._id}`}>
