@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRoom } from "../../contexts/roomContext";
 
 export function ChatroomMembers({ currentRoomId, auth }) {
   const [currentRoom, setCurrentRoom] = useState(null);
+  const { setRooms } = useRoom();
 
   useEffect(() => {
     try {
@@ -24,7 +26,28 @@ export function ChatroomMembers({ currentRoomId, auth }) {
     }
   }, []);
 
-  function AddToStage(user, room) {}
+  async function AddToStage(user, room) {
+    try {
+      const res = await axios.patch(
+        `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/updateuser/${room._id}`,
+        {
+          userId: user._id,
+          handraised: false,
+          status: "stageMember"
+        },
+        {
+          headers: {
+            "auth-token": auth.token
+          }
+        }
+      );
+      console.log("update ke bad ka room ", res);
+      setRooms(res.data);
+    } catch (err) {
+      console.log("error in adding to stage");
+    }
+  }
+
   return (
     <div className="chatroom--members--container">
       <h3>Stage</h3>
@@ -44,7 +67,7 @@ export function ChatroomMembers({ currentRoomId, auth }) {
         currentRoom.users.map((user) => {
           if (user.handraised === true) {
             return (
-              <div className="container-space-between">
+              <div className="container">
                 <p>{user.name}</p>
                 {currentRoom.owner._id === auth.user._id ? (
                   <button

@@ -62,6 +62,7 @@ export function ChatRoom() {
     const check = currentRoom.users.filter(
       (item) => item._id === auth.user._id
     );
+    return check.length;
   }
 
   function joinRoom() {
@@ -261,10 +262,7 @@ export function ChatRoom() {
         className="modal-err"
         id="modal"
         style={{
-          display:
-            new Date(`${currentRoom.startTime}`) > new Date(Date.now())
-              ? "none"
-              : showModal
+          display: alreadyIn() ? "none" : showModal
         }}
       >
         <div className="modal-content">
