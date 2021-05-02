@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRoom } from "../../contexts/roomContext";
 
-export function ChatroomMembers({ currentRoomId, auth }) {
+export function ChatroomMembers({
+  currentRoomId,
+  auth,
+  setShowUsers,
+  updateRoom
+}) {
   const [currentRoom, setCurrentRoom] = useState(null);
   const { setRooms } = useRoom();
 
@@ -43,9 +48,12 @@ export function ChatroomMembers({ currentRoomId, auth }) {
       );
       console.log("update ke bad ka room ", res);
       setRooms(res.data);
+      setShowUsers(false);
     } catch (err) {
       console.log("error in adding to stage");
     }
+
+    updateRoom();
   }
 
   return (

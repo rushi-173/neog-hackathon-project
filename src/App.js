@@ -9,7 +9,8 @@ import {
   Welcome,
   Account,
   CreateRoom,
-  ChatRoom
+  ChatRoom,
+  ClosedRooms
 } from "./pages";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./contexts/authContext";
@@ -42,7 +43,7 @@ export default function App() {
   //       console.log(err);
   //     }
   //   }
-  // }, [auth]);
+  // });
 
   const PrivateRoute = ({ path, element }) => {
     if (auth) {
@@ -85,6 +86,11 @@ export default function App() {
               exact
               path="/chatroom"
               element={auth ? <ChatRoom /> : <Login />}
+            />
+            <Route
+              exact
+              path="/closedrooms"
+              element={auth ? <ClosedRooms /> : <Login />}
             />
             <Route
               exact

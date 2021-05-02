@@ -32,20 +32,22 @@ export function ChatRoom() {
   const [showEmoji, setShowEmoji] = useState(false);
   const [showUsers, setShowUsers] = useState(false);
   const [showModal, setShowModal] = useState("flex");
+  const [showDeleteModal, setShowDeleteModal] = useState("none");
   const [input, setInput] = useState("");
   const [replyTo, setReplyTo] = useState(null);
   const { auth, setAuth } = useAuth();
   const { rooms, setRooms } = useRoom();
   const { toast } = useToast();
-  // const [currentRoom, setCurrentRoom] = useState();
+  const [currentRoom, setCurrentRoom] = useState(getCurrenRoom(chatid, rooms));
   // const [currentRoom, setCurrentRoom] = useState(getCurrenRoom(chatid, rooms));
 
-  let currentRoom = getCurrenRoom(chatid, rooms);
+  // let currentRoom = getCurrenRoom(chatid, rooms);
   const socket = socketIOClient(ENDPOINT);
 
   console.log("rooms", currentRoom, chatid);
   useEffect(() => {
-    currentRoom = getCurrenRoom(chatid, rooms);
+    setCurrentRoom(getCurrenRoom(chatid, rooms));
+    // currentRoom = getCurrenRoom(chatid, rooms);
   }, [rooms]);
 
   // useEffect(() => {
@@ -73,13 +75,23 @@ export function ChatRoom() {
     });
   }
 
+  function updateRoom() {
+    socket.emit("addToStage", {
+      user: auth.user,
+      room: currentRoom
+    });
+    setCurrentRoom(getCurrenRoom(chatid, rooms));
+  }
+
   async function exitRoom() {
-    if (currentRoom.owner._id === auth.user._id) {
-      //axios call to change room vsibility
-    }
     console.log("exiting the user");
     // socket.emit("exitRoom", { user: auth.user, room: currentRoom });
     console.log("current room ka id", currentRoom._id);
+
+    if (auth.user._id === currentRoom.owner.id) {
+      setShowDeleteModal(true);
+    }
+
     try {
       await axios.patch(
         `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/exituser/${currentRoom._id}`,
@@ -125,6 +137,11 @@ export function ChatRoom() {
     });
   });
 
+  socket.on("updateAllRooms", (data) => {
+    console.log("update all", data);
+    setRooms(data);
+  });
+
   socket.on("error", (data) => {
     setRooms((prev) => {
       return prev.map((room) => {
@@ -145,11 +162,13 @@ export function ChatRoom() {
       };
       socket.emit("chatMessage", { msg: msg, room: currentRoom });
       setInput("");
+      setShowUsers(false);
     }
   }
 
   async function raiseHand() {
     console.log("sending raise hand req");
+
     try {
       const res = await axios.patch(
         `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/updateuser/${currentRoom._id}`,
@@ -166,6 +185,7 @@ export function ChatRoom() {
       );
       console.log("update ke bad ka room ", res);
       setRooms(res.data);
+      setShowUsers(false);
     } catch (err) {
       console.log("error in exit");
     }
@@ -175,7 +195,11 @@ export function ChatRoom() {
       <div className="chat--details">
         <Link
           to="/"
-          onClick={exitRoom}
+          onClick={() => {
+            auth.user._id === currentRoom.owner._id
+              ? setShowDeleteModal("flex")
+              : exitRoom();
+          }}
           style={{ fontSize: "1.5rem", fontWeight: "300" }}
         >
           <i className="fa fa-arrow-left" />
@@ -191,16 +215,22 @@ export function ChatRoom() {
         </button>
       </div>
       <div className="div--chatend" style={{ height: "3rem" }}></div>
-      {new Date(`${currentRoom.startTime}`) > new Date(Date.now()) ? (
+      {currentRoom &&
+      new Date(`${currentRoom.startTime}`) > new Date(Date.now()) ? (
         <InactiveChats startTime={currentRoom.startTime} />
       ) : showUsers ? (
-        <ChatroomMembers currentRoomId={currentRoom._id} auth={auth} />
+        <ChatroomMembers
+          currentRoomId={currentRoom._id}
+          auth={auth}
+          setShowUsers={setShowUsers}
+          updateRoom={updateRoom}
+        />
       ) : (
         <Chats currentRoom={currentRoom} auth={auth} />
       )}
       <div className="div--chatend"></div>
       {auth &&
-      (currentRoom.owner._id === auth.user._id ||
+      ((currentRoom && currentRoom.owner._id === auth.user._id) ||
         isStageMemberOfRoom(auth.user, currentRoom)) ? (
         <div
           className="chat--input"
@@ -235,6 +265,7 @@ export function ChatRoom() {
           style={{
             justifyContent: "center",
             display:
+              currentRoom &&
               new Date(`${currentRoom.startTime}`) > new Date(Date.now())
                 ? "none"
                 : "flex"
@@ -284,6 +315,54 @@ export function ChatRoom() {
               }}
             >
               Enter
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal-err"
+        id="modal"
+        style={{
+          display: showDeleteModal
+        }}
+      >
+        <div className="modal-content">
+          <div className="modal-title">
+            <h2>Confirm</h2>
+          </div>
+          <div className="modal-description">
+            <p>Do you want to archieve this room?</p>
+          </div>
+          <div className="modal-btn-container">
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setShowDeleteModal((prev) =>
+                  prev === "none" ? "flex" : "none"
+                );
+              }}
+            >
+              Archieve
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                setShowDeleteModal((prev) =>
+                  prev === "none" ? "flex" : "none"
+                );
+              }}
+            >
+              Delete
+            </button>
+            <button
+              className="btn btn-success"
+              onClick={() => {
+                setShowDeleteModal((prev) =>
+                  prev === "none" ? "flex" : "none"
+                );
+              }}
+            >
+              Cancel
             </button>
           </div>
         </div>

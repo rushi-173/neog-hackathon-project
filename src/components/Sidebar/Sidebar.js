@@ -8,10 +8,10 @@ export function Sidebar() {
         <i className="fa fa-home" aria-hidden="true"></i>
         <small>Home</small>
       </SidebarItem>
-      <SidebarItem path="/search">
+      {/* <SidebarItem path="/search">
         <i className="fa fa-search" aria-hidden="true"></i>
         <small>Search</small>
-      </SidebarItem>
+      </SidebarItem> */}
     </div>
   );
 }

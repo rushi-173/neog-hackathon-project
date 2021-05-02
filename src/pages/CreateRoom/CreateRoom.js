@@ -42,7 +42,7 @@ export function CreateRoom() {
             topic: topic,
             startTime: startTime,
             endTime: endTime,
-            active: false,
+            active: true,
             users: [{ ...auth.user, status: "stageMember", handraised: false }],
             messages: [],
             visibility: true

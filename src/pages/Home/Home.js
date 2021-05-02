@@ -41,8 +41,9 @@ export function Home() {
       <div className="active--rooms">
         {rooms &&
           rooms
+            .filter((item) => item.active)
             .filter(
-              (item) => new Date(`${item.startTime}`) < new Date(Date.now())
+              (item) => new Date(`${item.startTime}`) <= new Date(Date.now())
             )
             .map((chatroom) => {
               return (
@@ -61,6 +62,7 @@ export function Home() {
       <div className="upcoming--rooms">
         {rooms &&
           rooms
+            .filter((item) => item.active)
             .filter(
               (item) => new Date(`${item.startTime}`) > new Date(Date.now())
             )

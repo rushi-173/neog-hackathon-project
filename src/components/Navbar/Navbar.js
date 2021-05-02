@@ -31,7 +31,8 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <Search />
+      {/* <Search /> */}
+
       <div></div>
 
       <ul className={menuStyles} onClick={menuHandler} id="menu">
