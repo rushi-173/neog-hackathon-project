@@ -1,4 +1,7 @@
 export function Chats({ currentRoom, auth, setReplyTo }) {
+  function replyHandler(message) {
+    setReplyTo(message);
+  }
   return (
     <div className="chat--container">
       {currentRoom &&
@@ -30,11 +33,12 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
                     <small className="sender-name">
                       {message.sender.name}{" "}
                     </small>
-                    <button>
-                      <div className="reply-to-menu">
-                        <button onClick={() => {}}>reply</button>
-                      </div>
-                      <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    <button
+                      onClick={() => {
+                        replyHandler(message);
+                      }}
+                    >
+                      <i className="fa fa-reply" aria-hidden="true"></i>
                     </button>
                   </div>
                   <div className="reply--msg">
@@ -49,11 +53,12 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
               <div className="chat__other">
                 <div>
                   <small className="sender-name">{message.sender.name} </small>
-                  <button>
-                    <div className="reply-to-menu">
-                      <button onClick={() => {}}>reply</button>
-                    </div>
-                    <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  <button
+                    onClick={() => {
+                      replyHandler(message);
+                    }}
+                  >
+                    <i className="fa fa-reply" aria-hidden="true"></i>
                   </button>
                 </div>
 

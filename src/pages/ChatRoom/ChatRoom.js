@@ -1,7 +1,7 @@
 import "./Chatroom.css";
 import { useState, useEffect } from "react";
 import Picker from "emoji-picker-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GrEmoji } from "react-icons/gr";
 import { useRoom } from "../../contexts/roomContext";
 import { useAuth } from "../../contexts/authContext";
@@ -34,10 +34,11 @@ export function ChatRoom() {
   const [showModal, setShowModal] = useState("flex");
   const [showDeleteModal, setShowDeleteModal] = useState("none");
   const [input, setInput] = useState("");
-  const [replyTo, setReplyTo] = useState(null);
+  const [replyTo, setReplyTo] = useState(undefined);
   const { auth, setAuth } = useAuth();
   const { rooms, setRooms } = useRoom();
   const { toast } = useToast();
+  let navigate = useNavigate();
   const [currentRoom, setCurrentRoom] = useState(getCurrenRoom(chatid, rooms));
   // const [currentRoom, setCurrentRoom] = useState(getCurrenRoom(chatid, rooms));
 
@@ -83,14 +84,40 @@ export function ChatRoom() {
     setCurrentRoom(getCurrenRoom(chatid, rooms));
   }
 
+  async function archieveRoom() {
+    try {
+      await axios.patch(
+        `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/close/${currentRoom._id}`,
+        {
+          headers: {
+            "auth-token": auth.token
+          }
+        }
+      );
+    } catch (err) {
+      console.log("error in exit");
+    }
+  }
+
+  async function deleteRoom() {
+    try {
+      await axios.patch(
+        `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/delete/${currentRoom._id}`,
+        {
+          headers: {
+            "auth-token": auth.token
+          }
+        }
+      );
+    } catch (err) {
+      console.log("error in exit");
+    }
+  }
+
   async function exitRoom() {
     console.log("exiting the user");
     // socket.emit("exitRoom", { user: auth.user, room: currentRoom });
     console.log("current room ka id", currentRoom._id);
-
-    if (auth.user._id === currentRoom.owner.id) {
-      setShowDeleteModal(true);
-    }
 
     try {
       await axios.patch(
@@ -106,6 +133,15 @@ export function ChatRoom() {
       );
     } catch (err) {
       console.log("error in exit");
+    }
+  }
+
+  function exitHandler() {
+    if (auth.user._id === currentRoom.owner._id) {
+      setShowDeleteModal("flex");
+    } else {
+      exitRoom();
+      navigate("/");
     }
   }
   // useEffect(() => {
@@ -158,10 +194,12 @@ export function ChatRoom() {
     if ((e.type === "click" || e.key === "Enter") && input) {
       const msg = {
         sender: auth.user,
-        message: input
+        message: input,
+        repliedTo: replyTo
       };
       socket.emit("chatMessage", { msg: msg, room: currentRoom });
       setInput("");
+      setReplyTo(undefined);
       setShowUsers(false);
     }
   }
@@ -193,17 +231,12 @@ export function ChatRoom() {
   return (
     <div className="chat--app">
       <div className="chat--details">
-        <Link
-          to="/"
-          onClick={() => {
-            auth.user._id === currentRoom.owner._id
-              ? setShowDeleteModal("flex")
-              : exitRoom();
-          }}
+        <button
+          onClick={exitHandler}
           style={{ fontSize: "1.5rem", fontWeight: "300" }}
         >
           <i className="fa fa-arrow-left" />
-        </Link>
+        </button>
         <h4>{currentRoom && currentRoom.title}</h4>
         <button
           className="btn btn-primary"
@@ -226,7 +259,7 @@ export function ChatRoom() {
           updateRoom={updateRoom}
         />
       ) : (
-        <Chats currentRoom={currentRoom} auth={auth} />
+        <Chats currentRoom={currentRoom} auth={auth} setReplyTo={setReplyTo} />
       )}
       <div className="div--chatend"></div>
       {auth &&
@@ -241,10 +274,14 @@ export function ChatRoom() {
           {replyTo && (
             <div className="reply--msg--input">
               <div className="reply--msg">
-                <small>reply user</small>
-                <p>reply messege</p>
+                <small>{replyTo.sender.name}</small>
+                <p>{replyTo.message}</p>
               </div>
-              <button>
+              <button
+                onClick={() => {
+                  setReplyTo(undefined);
+                }}
+              >
                 <i class="fa fa-times" aria-hidden="true"></i>
               </button>
             </div>
@@ -337,6 +374,7 @@ export function ChatRoom() {
             <button
               className="btn btn-primary"
               onClick={() => {
+                archieveRoom();
                 setShowDeleteModal((prev) =>
                   prev === "none" ? "flex" : "none"
                 );
@@ -347,6 +385,7 @@ export function ChatRoom() {
             <button
               className="btn btn-danger"
               onClick={() => {
+                deleteRoom();
                 setShowDeleteModal((prev) =>
                   prev === "none" ? "flex" : "none"
                 );
