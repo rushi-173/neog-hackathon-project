@@ -1,17 +1,9 @@
 const router = require("express").Router();
+const Chatroom = require("../models/chatroom.model");
 
-router.use((req, res, next) => {
-  req.io.of("/api/chatroom").on('connection', (socket) => {
-    console.log("User connected " + socket.id);
 
-    socket.on("message", (data) => {
-      socket.broadcast.emit('message', data)
-    });
-  });
-
-  next();
-})
-
+const chatroomRouter = require("./chatroom.route");
+router.use("/chatroom", chatroomRouter);
 
 router.get("/", (req, res) => {
   res.send("Welcome to api");

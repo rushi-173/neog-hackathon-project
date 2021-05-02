@@ -1,23 +1,35 @@
 const mongoose = require('mongoose');
 
 const chatroomSchema = new mongoose.Schema({
-  owner_id: {
+  owner: {
+    type: Object,
+    required: true
+  },
+  title: {
     type: String,
     required: true
   },
-  startTime: Date,
-  endTime: Date,
-  stage_members: {
-    type: [],
-    default: [owners_id]
+  topic: {
+    type: String,
+    required: true
+  },
+  startTime: {
+    type: Date,
+    required: true
+  },
+  endTime: {
+    type: Date,
+    required: true
   },
   active: {
     type: Boolean,
     default: true
   },
-  visibility:true,
-  handraised_members: [],
-  audience: [],
+  visibility:{
+    type: Boolean,
+    default: true
+  },
+  users: [],
   messages: [],
   date: {
     type: Date,

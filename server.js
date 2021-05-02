@@ -55,3 +55,6 @@ const expressServer = server.listen(port, () => {
   console.log("server running...")
 });
 
+//
+const createSocketConnection = require("./utils/sockets");
+createSocketConnection(io,server);
