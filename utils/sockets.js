@@ -55,20 +55,6 @@ function createSocketConnection(io, server) {
     });
 
 
-    // addUserToChatroomAudience(user,room);
-
-    // let newRoom = room;
-    // newRoom.messages = [...newRoom.messages,{
-    //   sender: bot,
-    //     message: `${user.name} joined the room`,
-    // }]
-    // let temp = newRoom.audience.find({ _id: user.id });
-    // if (temp.length === 0) {
-    //   newRoom.audience = [...newRoom.audience, user]
-    // }
-
-
-
     // Listen for chatMessage
     socket.on('chatMessage', async ({ msg, room }) => {
       const updatedRoom = addMessageToChatroom(msg, room)
@@ -106,31 +92,7 @@ function createSocketConnection(io, server) {
         )
     });
 
-    // Runs when client disconnects
-    // socket.on('exitRoom', async (user, room) => {
-    //   try {
-    //    const currRoom = await Chatroom.findById(room._id);
-    //     const tempUsers = currRoom.users.filter((temp)=>temp._id!==user._id);
-    //     console.log("current room",currRoom);
-    //     const updatedRoom = await Chatroom.updateOne(
-    //       { _id: room._id },
-    //       {
-    //         $set: {
-    //           users: tempUsers
-    //         }
-    //       });
-    //     const resRoom = await Chatroom.findById(room._id);
-    //     // Broadcast when a user connects
-    //     socket.broadcast
-    //       .to(room._id)
-    //       .emit(
-    //         'updateUsersRoom', resRoom
-    //       )
-    //   } catch (err) {
-    //     console.log("error in removing user to audience")
-    //   }
-
-    // });
+  
   });
 
 }

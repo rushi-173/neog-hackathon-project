@@ -86,27 +86,7 @@ router.get("/:roomId", async (req, res) => {
   }
 });
 
-//update a room
-// router.patch("/:roomId", async (req, res) => {
-//   try {
-//     const updatedRoom = await Chatroom.updateOne(
-//       { _id: req.params.roomId },
-//       {
-//         $set:
-//         {
-//           stageMembers: req.body.stageMembers,
-//           handraisedMembers: req.body.handraisedMembers,
-//           audience: req.body.audience,
-//           messages: req.body.rating
-//         }
-//       }
-//     );
-//     res.json(updatedRoom);
-//   }
-//   catch (err) {
-//     res.json({ message: err });
-//   }
-// })
+
 
 //close a room
 router.patch("/close/:roomId", async (req, res) => {
