@@ -25,8 +25,15 @@ export const Navbar = () => {
           setMenuStyles={setMenuStyles}
         />
         <Link to="/" className="container-center brand-logo">
-          <p className="brand-name">
-            Adda <span>51</span>
+          <p
+            style={{
+              fontWeight: "900",
+              fontSize: "1.5rem",
+              fontFamily: "sans-serif",
+              color: "#97bd30"
+            }}
+          >
+            Adda <span style={{ color: "#1f2937" }}>51</span>
           </p>
         </Link>
       </div>

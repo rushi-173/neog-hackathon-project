@@ -37,7 +37,16 @@ export function Home() {
   // console.log(rooms);
   return (
     <div className="Home">
-      <h1 style={{ color: "#1DA1F2" }}>Active Rooms</h1>
+      <h1 className="active--title" style={{ color: "#97bd30" }}>
+        Active Rooms
+      </h1>
+      {!(
+        rooms
+          .filter((item) => item.active)
+          .filter(
+            (item) => new Date(`${item.startTime}`) < new Date(Date.now())
+          ).length > 0
+      ) && "No Active rooms"}
       <div className="active--rooms">
         {rooms &&
           rooms
@@ -58,7 +67,16 @@ export function Home() {
               );
             })}
       </div>
-      <h1 style={{ color: "#1DA1F2" }}>Upcoming Rooms</h1>
+      <h1 className="active--title" style={{ color: "#97bd30" }}>
+        Upcoming Rooms
+      </h1>
+      {!(
+        rooms
+          .filter((item) => item.active)
+          .filter(
+            (item) => new Date(`${item.startTime}`) > new Date(Date.now())
+          ).length > 0
+      ) && "No Upcoming rooms"}
       <div className="upcoming--rooms">
         {rooms &&
           rooms

@@ -11,7 +11,7 @@ export function ArchievedChats({ currentRoom, auth }) {
                 <div className="chat__self">
                   <small>{message.sender.name}</small>
                   <div className="reply--msg">
-                    <small>{message.repliedTo.user.name}</small>
+                    <small>{message.repliedTo.sender.name}</small>
                     <p>{message.repliedTo.message}</p>
                   </div>
                   <p>{message.message}</p>
@@ -34,10 +34,10 @@ export function ArchievedChats({ currentRoom, auth }) {
                     </small>
                   </div>
                   <div className="reply--msg">
-                    <small>{message.repliedTo.user.name}</small>
+                    <small>{message.repliedTo.sender.name}</small>
                     <p>{message.repliedTo.message}</p>
                   </div>
-                  <p>{message}</p>
+                  <p>{message.message}</p>
                 </div>
               );
             }

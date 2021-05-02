@@ -88,6 +88,7 @@ export function ChatRoom() {
     try {
       await axios.patch(
         `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/close/${currentRoom._id}`,
+        {},
         {
           headers: {
             "auth-token": auth.token
@@ -105,6 +106,7 @@ export function ChatRoom() {
     try {
       await axios.patch(
         `https://neog-hackathon-project.rushi173.repl.co/api/chatroom/delete/${currentRoom._id}`,
+        {},
         {
           headers: {
             "auth-token": auth.token
