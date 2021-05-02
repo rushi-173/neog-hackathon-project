@@ -12,13 +12,13 @@
 .chat--container {
   display: flex;
   flex-direction: column;
-  background-color: #e5ddd5;
+  background-color: #fff;
   justify-content: space-around;
   padding: 2rem 1rem;
   overflow-y: scroll;
 }
 .chat__other {
-  background-color: #fff;
+  background-color: #e5e7eb;
   width: 60%;
   padding: 0.5rem 1rem;
   display: flex;
@@ -54,7 +54,7 @@
 }
 
 .chat__self {
-  background-color: #dcf8c6;
+  background-color: #93c5fd;
   width: 60%;
   padding: 0.5rem 1rem;
   display: flex;
@@ -74,13 +74,44 @@
   padding: 0 1rem;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 90%;
 }
 .chat--input input {
-  width: 70%;
+  width: 100%;
   height: 3rem;
   border-radius: 1rem;
   font-size: 1rem;
   padding-left: 1rem;
   margin-left: 1rem;
+}
+
+.chat--details {
+  background-color: #f0f0f0;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  position: fixed;
+  width: 90%;
+  margin-top: -1rem;
+}
+
+.div--chatend {
+  height: 4rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .chat--details {
+    width: 100%;
+    top: 0;
+    margin-top: 0;
+    z-index: 100;
+  }
+  .chat--input {
+    width: 100%;
+  }
+  .div--chatend {
+    display: none;
+  }
 }

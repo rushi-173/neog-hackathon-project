@@ -14,7 +14,7 @@ export function Search() {
           width: "80%",
           margin: "0",
           outline: "none",
-          border: "2px solid #51c84d"
+          border: "2px solid #1DA1F2"
         }}
         placeholder="Search..."
       />
@@ -25,7 +25,7 @@ export function Search() {
           width: "20%",
           margin: "0",
           borderRadius: "0px",
-          border: "2px solid #51c84d"
+          border: "2px solid #1DA1F2"
         }}
       >
         <i className="fa fa-search" aria-hidden="true"></i>

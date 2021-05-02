@@ -40,8 +40,8 @@ export function CreateRoom() {
             ownerId: auth.user._id,
             title: title,
             topic: topic,
-            startTime: new Date(startTime),
-            endTime: new Date(endTime),
+            startTime: Date(startTime),
+            endTime: Date(endTime),
             stageMembers: [auth.user._id],
             active: false,
             handraisedMembers: [],
@@ -140,7 +140,10 @@ export function CreateRoom() {
             {error}
           </small>
           <button
-            className="btn btn-primary btn-Signup"
+            disabled={
+              !title || !topic || !startTime || !endTime || error !== ""
+            }
+            className="btn btn-primary btn-Signup create-room-btn"
             onClick={handleCreateRoom}
           >
             {isLoading ? (

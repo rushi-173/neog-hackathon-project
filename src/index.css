@@ -4,13 +4,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap");
 
 /* Component Library Color styles */
 :root {
   --text-color: #1f2937;
   --text-dark-color: #f3f4f6;
 
-  --color-primary: #51c84d; /*#06b100; /* #33cccc; */
+  --color-primary: #1da1f2; /*#06b100; /* #33cccc; */
   --color-primary-dark: #012300; /* #0a2929; */
   --color-primary-bg: #b4e8b3; /* #d4ffff; */
   /* --color-secondary: #3b82f6;
@@ -39,7 +40,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
   /* color: white; */
   box-sizing: border-box;
 }

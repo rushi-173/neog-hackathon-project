@@ -22,27 +22,27 @@ export default function App() {
   const { ToastContainer } = useToast();
   const { rooms, setRooms } = useRoom();
 
-  console.log(rooms);
-  useEffect(() => {
-    if (auth) {
-      try {
-        (async function getData() {
-          const res = await axios.get(
-            "https://neog-hackathon-project.rushi173.repl.co/api/chatroom",
-            {
-              headers: {
-                "auth-token": auth.token
-              }
-            }
-          );
-          console.log("rooms", res);
-          res.data && setRooms(res.data);
-        })();
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }, [auth]);
+  // console.log(rooms);
+  // useEffect(() => {
+  //   if (auth) {
+  //     try {
+  //       (async function getData() {
+  //         const res = await axios.get(
+  //           "https://neog-hackathon-project.rushi173.repl.co/api/chatroom",
+  //           {
+  //             headers: {
+  //               "auth-token": auth.token
+  //             }
+  //           }
+  //         );
+  //         console.log("rooms", res);
+  //         res.data && setRooms(res.data);
+  //       })();
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // }, [auth]);
 
   const PrivateRoute = ({ path, element }) => {
     if (auth) {
