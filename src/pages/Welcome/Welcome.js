@@ -5,11 +5,18 @@ export function Welcome() {
   return (
     <div className="Welcome">
       <h1>Welcome</h1>
-      <Link to="/login" style={{ width: "8rem" }} className="btn btn-primary">
-        Login
-      </Link>
+      <br />
+      <br />
       <Link to="/signup" style={{ width: "8rem" }} className="btn btn-primary">
-        Sign Up
+        Get Started
+      </Link>
+      <br />
+      <Link
+        to="/login"
+        style={{ width: "8rem" }}
+        className="btn btn-outline-primary"
+      >
+        Login
       </Link>
     </div>
   );
