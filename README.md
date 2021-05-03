@@ -6,6 +6,9 @@
       <p>
       Adda 51 is adda of all the gossips and whereabouts happening around you. Create your room, add users to stage and discuss. The room is public so you can share it to the world but you also can control who can send messages in the room by bringing them to stage. So that’s two shot from one arrow. 
       </p>
+    <p>
+        User can also create threads by replying to each other messages
+    </p>
       <p>
       After the conversation is over, you also have the option to archive the whole conversation, because Even though live is fun, there’s a huge FOMO when you miss out.
       </p>
