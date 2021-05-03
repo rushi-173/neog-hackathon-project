@@ -179,6 +179,11 @@
   text-decoration: underline;
   text-decoration-color: var(--color-primary);
 }
+.name--reply--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 @media only screen and (max-width: 500px) {
   .chat--details {
     width: 100%;

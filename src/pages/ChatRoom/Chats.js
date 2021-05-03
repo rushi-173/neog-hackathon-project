@@ -10,7 +10,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             if (message.repliedTo) {
               return (
                 <div className="chat__self">
-                  <div>
+                  <div className="name--reply--container">
                     <small className="sender-name">
                       {message.sender.name}{" "}
                     </small>
@@ -32,7 +32,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             }
             return (
               <div className="chat__self">
-                <div>
+                <div className="name--reply--container">
                   <small className="sender-name">{message.sender.name} </small>
                   <button
                     onClick={() => {
@@ -49,7 +49,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             if (message.repliedTo) {
               return (
                 <div className="chat__other">
-                  <div>
+                  <div className="name--reply--container">
                     <small className="sender-name">
                       {message.sender.name}{" "}
                     </small>
@@ -71,7 +71,7 @@ export function Chats({ currentRoom, auth, setReplyTo }) {
             }
             return (
               <div className="chat__other">
-                <div>
+                <div className="name--reply--container">
                   <small className="sender-name">{message.sender.name} </small>
                   <button
                     onClick={() => {
