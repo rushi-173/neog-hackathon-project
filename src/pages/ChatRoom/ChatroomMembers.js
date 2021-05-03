@@ -63,7 +63,7 @@ export function ChatroomMembers({
         currentRoom.users.map((user) => {
           if (user.status === "stageMember") {
             return (
-              <div>
+              <div className="user--list--card">
                 <p>{user.name}</p>
               </div>
             );
@@ -75,7 +75,7 @@ export function ChatroomMembers({
         currentRoom.users.map((user) => {
           if (user.handraised === true) {
             return (
-              <div className="container">
+              <div className="user--list--card">
                 <p>{user.name}</p>
                 {currentRoom.owner._id === auth.user._id ? (
                   <button
@@ -85,7 +85,7 @@ export function ChatroomMembers({
                   >
                     <i
                       class="fa fa-plus"
-                      className="badge bg-primary"
+                      className="badge btn-primary"
                       aria-hidden="true"
                     ></i>
                   </button>
@@ -103,7 +103,7 @@ export function ChatroomMembers({
           if (user.handraised === false && user.status === "audience") {
             console.log("audieence", user);
             return (
-              <div>
+              <div className="user--list--card">
                 <p>{user.name}</p>
               </div>
             );

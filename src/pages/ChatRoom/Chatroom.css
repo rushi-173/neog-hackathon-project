@@ -166,7 +166,19 @@
   bottom: 4rem;
   width: 90%;
 }
-
+.user--list--card {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+}
+.chatroom--members--container h3 {
+  margin-top: 1rem;
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+}
 @media only screen and (max-width: 500px) {
   .chat--details {
     width: 100%;
